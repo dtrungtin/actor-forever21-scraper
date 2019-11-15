@@ -98,8 +98,10 @@ Apify.main(async () => {
                         break;
                     }
 
-                    await page.waitFor(500); // to wait for 500ms
-                    await page.waitFor(() => $('.loading').is(":hidden"), { timeout: 2000 });
+                    try {
+                        await page.waitFor(500); // to wait for 500ms
+                        await page.waitFor(() => $('.loading').is(":hidden"), { timeout: 10000 });
+                    } catch (error) {}
 
                     let result = await page.evaluate(() => {
                         const data = [];
@@ -133,6 +135,8 @@ Apify.main(async () => {
                     data['brand'] = brand;
                     data['price'] = $('#ItemPrice span').text();
                     data['description'] = $('#tabDescriptionContent').text();
+                    data['color'] = $('#selectedColorName').text();
+                    data['sizes'] = $('#sizeButton li span').map(function() { return $( this ).text(); }).toArray()
 
                     return data;
                 });
@@ -155,7 +159,7 @@ Apify.main(async () => {
 
         maxRequestRetries: 2,
         maxRequestsPerCrawl: 1000,
-        maxConcurrency: 10,
+        maxConcurrency: 5,
 
         launchPuppeteerOptions: {
             ...input.proxyConfiguration,
