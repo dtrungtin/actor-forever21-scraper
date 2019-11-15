@@ -41,7 +41,9 @@ Apify.main(async () => {
         return input.maxItems && detailsEnqueued >= input.maxItems;
     }
 
-    for (const startUrl of startUrls) {
+    for (const item of input.startUrls) {
+        const startUrl = item.url;
+
         if (checkLimit()) {
             break;
         }
