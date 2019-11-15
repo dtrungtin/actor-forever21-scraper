@@ -157,7 +157,7 @@ Apify.main(async () => {
         maxRequestsPerCrawl: 1000,
         maxConcurrency: 10,
 
-        launchPuppeteerFunction: {
+        launchPuppeteerOptions: {
             ...input.proxyConfiguration,
         },
     });
