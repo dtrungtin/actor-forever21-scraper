@@ -134,7 +134,7 @@ Apify.main(async () => {
 
                     data['brand'] = brand;
                     data['price'] = $('#ItemPrice span').text();
-                    data['description'] = $('#tabDescriptionContent').text();
+                    data['description'] = $('#tabDescriptionContent').text().trim();
                     data['color'] = $('#selectedColorName').text();
                     data['sizes'] = $('#sizeButton li span').map(function() { return $( this ).text(); }).toArray();
 
